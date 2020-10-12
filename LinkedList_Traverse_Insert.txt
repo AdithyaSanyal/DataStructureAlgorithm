@@ -1,0 +1,120 @@
+#include<stdio.h>
+#include<malloc.h>
+
+struct node{
+int data;
+struct node *next;
+};
+
+void createLinkedList(struct node *head){
+struct node *newnode;
+int n,i;
+printf("Enter number of entries: ");
+scanf("%d",&n);
+head=(struct node *)malloc(sizeof(struct node));
+printf("Enter data: ");
+scanf("%d",&head->data);
+head->next=NULL;
+newnode=head;
+for(i=1;i<n;i++){
+    newnode->next=(struct node *)malloc(sizeof(struct node));
+    newnode=newnode->next;
+    newnode->next=NULL;
+    printf("Enter data: ");
+    scanf("%d",&newnode->data);
+}
+print(head);
+}
+
+void insertAtBegin(struct node *head){
+struct node *begnode,*newnode;
+int n,i;
+printf("Enter number of entries: ");
+scanf("%d",&n);
+head=(struct node *)malloc(sizeof(struct node));
+printf("Enter data: ");
+scanf("%d",&head->data);
+head->next=NULL;
+newnode=head;
+for(i=1;i<n;i++){
+    newnode->next=(struct node *)malloc(sizeof(struct node));
+    newnode=newnode->next;
+    newnode->next=NULL;
+    printf("Enter data: ");
+    scanf("%d",&newnode->data);
+}
+printf("\nThe entered linked list is: \n");
+print(head);
+
+begnode=(struct node*)malloc(sizeof(struct node));
+printf("\nEnter data to be inserted: ");
+scanf("%d",&begnode->data);
+begnode->next=head;
+head=begnode;
+print(head);
+}
+
+void insertAtEnd(struct node *head){
+struct node *endnode,*newnode,*temp;
+int n,i;
+printf("Enter number of entries: ");
+scanf("%d",&n);
+head=(struct node *)malloc(sizeof(struct node));
+printf("Enter data: ");
+scanf("%d",&head->data);
+head->next=NULL;
+newnode=head;
+for(i=1;i<n;i++){
+    newnode->next=(struct node *)malloc(sizeof(struct node));
+    newnode=newnode->next;
+    newnode->next=NULL;
+    printf("Enter data: ");
+    scanf("%d",&newnode->data);
+}
+printf("\nThe entered linked list is: \n");
+print(head);
+
+endnode=(struct node *)malloc(sizeof(struct node));
+endnode->next=NULL;
+printf("\nEnter the data to be inserted at the end: \n");
+scanf("%d",&endnode->data);
+temp=head;
+while(temp->next!=NULL){
+    temp=temp->next;
+}
+temp->next=endnode;
+temp=endnode;
+print(head);
+}
+
+void print(struct node *n){
+while(n!=0){
+    printf(" %d ",n->data);
+    n=n->next;
+}
+}
+
+void main(){
+int choice;
+struct node *head;
+printf("\n 1.Create Linked List \n 2.Insert at beginning of Linked List \n 3.Insert at end of Linked List \n");
+while(choice!=4){
+printf("\n Enter choice: ");
+scanf("%d",&choice);
+switch(choice){
+case 1:
+    createLinkedList(head);
+    break;
+case 2:
+    insertAtBegin(head);
+    break;
+case 3:
+    insertAtEnd(head);
+    break;
+
+}
+}
+}
+
+
+
