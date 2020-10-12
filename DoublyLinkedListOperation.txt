@@ -53,7 +53,6 @@ print(head);
 void insertAtBeg(){
 struct node *newnode;
 
-create();
 newnode=(struct node *)malloc(sizeof(struct node));
 printf("\nEnter data to be inserted at start: ");
 scanf("%d",&newnode->data);
@@ -74,7 +73,6 @@ print(head);
 void insertAtEnd(){
 struct node *newnode,*temp;
 
-create();
 newnode=(struct node *)malloc(sizeof(struct node));
 printf("Enter data to be inserted at the end: ");
 scanf("%d",&newnode->data);
@@ -90,7 +88,7 @@ print(head);
 void insertAtPosition(){
 struct node *newnode,*temp;
 int i,pos;
-create();
+
 printf("Enter the position where we want to insert the node: ");
 scanf("%d",&pos);
 if(pos>count(head)){
@@ -122,7 +120,7 @@ else{
 
 void deletebeg(){
 struct node *temp;
-create();
+
 temp=(struct node *)malloc(sizeof(struct node));
 if(head==0){
     printf("\nThe linked list is empty");
@@ -139,7 +137,7 @@ else{
 
 void deleteEnd(){
 struct node *temp;
-create();
+
 temp=(struct node *)malloc(sizeof(struct node));
 if(tail==0){
     printf("The list is empty");
@@ -157,7 +155,7 @@ else{
 void deletePos(){
 struct node *temp;
 int pos,i=1;
-create();
+
 printf("Enter the position: ");
 scanf("%d",&pos);
 temp=head;
@@ -167,14 +165,17 @@ while(i<pos){
 }
 temp->prev->next=temp->next;
 temp->next->prev=temp->prev;
+free(temp);
 printf("\nAfter deletion: \n");
 print(head);
 }
 
 void main(){
     int option;
-    printf("1.Create a Doubly Linked List\n 2.Insert a node at the start\n 3.Insert a node at the end\n 4.Insert a node at a given position\n ");
+    printf("\n 1.Create a Doubly Linked List\n 2.Insert a node at the start\n 3.Insert a node at the end\n 4.Insert a node at a given position\n ");
     printf("5.Delete a node at the start\n 6.Delete a node at the end\n 7.Delete a node from a position \n");
+    printf(" 8.Exit\n");
+    while(option!=8){
     printf("\nEnter choice: ");
     scanf("%d",&option);
     switch(option){
@@ -199,5 +200,9 @@ case 6:
 case 7:
     deletePos();
     break;
+case 8:
+    printf("You have exited");
+    break;
 }
+    }
 }
