@@ -1,0 +1,269 @@
+#include <stdio.h> 
+
+  
+
+int stack[20] ; 
+
+int top,n=20; 
+
+  
+
+void display(int data) 
+
+{ 
+
+    int i=data; 
+
+    while(i){ 
+
+        printf("%d ",stack[i]); 
+
+        i--; 
+
+    } 
+
+    printf("%d ",stack[i]); 
+
+} 
+
+  
+
+void push ( int data ) 
+
+{ 
+
+  
+
+if ( top == n- 1 ) 
+
+  
+
+printf ( "\nStack is full" ) ; 
+
+  
+
+else 
+
+  
+
+{ 
+
+  
+
+top++ ; 
+
+  
+
+stack[ top ] = data ; 
+
+  
+
+} 
+
+  
+
+} 
+
+  
+
+void pop() 
+
+  
+
+{ 
+
+  
+
+int data ; 
+
+  
+
+if ( top == -1 ) 
+
+  
+
+{ 
+
+  
+
+printf ( "\nStack is empty" ) ; 
+
+  
+
+} 
+
+  
+
+else 
+
+  
+
+{ 
+
+  
+
+data = stack[ top ] ; 
+
+  
+
+top-- ; 
+
+  
+
+printf("Data popped =%d \n",data); 
+
+  
+
+} 
+
+  
+
+} 
+
+  
+
+void peek() 
+
+  
+
+{ 
+
+  
+
+    printf("Value at top of the stack=%d",stack[top]); 
+
+  
+
+}; 
+
+  
+
+void main( ) 
+
+  
+
+{ 
+
+  
+
+int choice,data; 
+
+  
+
+int n; 
+
+  
+
+top = -1 ; 
+
+  
+
+do 
+
+  
+
+{ 
+
+  
+
+printf("\n 1. Push\n"); 
+
+  
+
+printf("2. Pop\n"); 
+
+  
+
+printf("3. Peep\n"); 
+
+  
+
+printf("4. Display\n"); 
+
+  
+
+printf("5. Exit\n"); 
+
+  
+
+printf("Enter choice: "); 
+
+  
+
+scanf("%d",&choice); 
+
+  
+
+if (choice==1) 
+
+  
+
+{ 
+
+  
+
+printf("Enter data to push: "); 
+
+  
+
+scanf("%d",&data); 
+
+  
+
+push(data); 
+
+  
+
+} 
+
+  
+
+if (choice==2) 
+
+  
+
+{ 
+
+  
+
+pop( ) ; 
+
+  
+
+} 
+
+  
+
+if (choice==3) 
+
+  
+
+{ 
+
+  
+
+peek( ) ; 
+
+  
+
+} 
+
+  
+
+if (choice==4) 
+
+  
+
+{ 
+
+display ( top); 
+
+} 
+
+  
+
+}while (choice!=5); 
+
+  
+
+} 
