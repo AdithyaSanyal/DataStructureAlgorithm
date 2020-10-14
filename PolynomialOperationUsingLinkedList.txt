@@ -1,0 +1,177 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+
+struct node{
+int power;
+float coeff;
+struct node *next;
+};
+
+void print(struct node *n){
+while(n!=0){
+    printf("  %0.2f x^%d  ",n->coeff,n->power);
+    n=n->next;
+}
+}
+
+struct node *create(){
+struct node *newnode,*temp;
+int n;
+printf("\nEnter number of entries: ");
+scanf("%d",&n);
+newnode=(struct node *)malloc(sizeof(struct node));
+temp=newnode;
+newnode->next=0;
+printf("\nEnter power and coefficient of the term: ");
+scanf("%d %f",&(temp->power),&(temp->coeff));
+for(int i=1;i<n;i++){
+    temp->next=(struct node *)malloc(sizeof(struct node));
+    temp=temp->next;
+    temp->next=0;
+    printf("\nEnter power and coefficient of the term: ");
+    scanf("%d %f",&(temp->power),&(temp->coeff));
+}
+return(newnode);
+}
+
+struct node *addition(struct node *p1,struct node *p2){
+    struct node *a,*b;
+    a=NULL;
+    while(p1!=0 && p2!=0){
+    if(a==0){
+        a=b=(struct node *)malloc(sizeof(struct node));
+        b->next=NULL;
+    }
+    else{
+        b->next=(struct node *)malloc(sizeof(struct node));
+        b=b->next;
+        b->next=0;
+    }
+    if(p1->power>p2->power){
+        b->power=p2->power;
+        b->coeff=p2->coeff;
+        p2=p2->next;
+    }
+    else if(p1->power<p2->power){
+        b->power=p1->power;
+        b->coeff=p1->coeff;
+        p1=p1->next;
+    }
+    else{
+        b->power=p1->power;
+        b->coeff=p1->coeff+p2->coeff;
+        p1=p1->next;
+        p2=p2->next;
+    }
+    }
+    while(p1!=0){
+        if(a==0){
+            a=b=(struct node *)malloc(sizeof(struct node));
+            b->next=0;
+        }
+        else{
+            b->next=(struct node *)malloc(sizeof(struct node));
+            b=b->next;
+            b->next=0;
+        }
+        b->power=p1->power;
+        b->coeff=p1->coeff;
+        p1=p1->next;
+    }
+    while(p2!=0){
+        if(a==0){
+            a=b=(struct node *)malloc(sizeof(struct node));
+            b->next=0;
+        }
+        else{
+            b->next=(struct node *)malloc(sizeof(struct node));
+            b=b->next;
+            b->next=0;
+        }
+        b->power=p1->power;
+        b->coeff=p1->coeff;
+        p1=p1->next;
+    }
+    return(a);
+}
+
+struct node *subtraction(struct node *p1,struct node *p2){
+    struct node *a,*b;
+    a=NULL;
+    while(p1!=0 && p2!=0){
+    if(a==0){
+        a=b=(struct node *)malloc(sizeof(struct node));
+        b->next=NULL;
+    }
+    else{
+        b->next=(struct node *)malloc(sizeof(struct node));
+        b=b->next;
+        b->next=0;
+    }
+    if(p1->power>p2->power){
+        b->power=p2->power;
+        b->coeff=p2->coeff;
+        p2=p2->next;
+    }
+    else if(p1->power<p2->power){
+        b->power=p1->power;
+        b->coeff=p1->coeff;
+        p1=p1->next;
+    }
+    else{
+        b->power=p1->power;
+        b->coeff=p1->coeff-p2->coeff;
+        p1=p1->next;
+        p2=p2->next;
+    }
+    }
+    while(p1!=0){
+        if(a==0){
+            a=b=(struct node *)malloc(sizeof(struct node));
+            b->next=0;
+        }
+        else{
+            b->next=(struct node *)malloc(sizeof(struct node));
+            b=b->next;
+            b->next=0;
+        }
+        b->power=p1->power;
+        b->coeff=p1->coeff;
+        p1=p1->next;
+    }
+    while(p2!=0){
+        if(a==0){
+            a=b=(struct node *)malloc(sizeof(struct node));
+            b->next=0;
+        }
+        else{
+            b->next=(struct node *)malloc(sizeof(struct node));
+            b=b->next;
+            b->next=0;
+        }
+        b->power=p1->power;
+        b->coeff=p1->coeff;
+        p1=p1->next;
+    }
+    return(a);
+}
+
+void main(){
+struct node *p1,*p2,*add,*sub;
+int choice;
+printf("\nEnter the first polynomial: ");
+p1=create();
+printf("\nEnter the second polynomial: ");
+p2=create();
+
+add=addition(p1,p2);
+printf("\nThe addition of the 2 polynomials is: ");
+print(add);
+
+sub=subtraction(p1,p2);
+printf("\nThe subtraction of the 2 polynomials is: ");
+print(sub);
+
+
+}
