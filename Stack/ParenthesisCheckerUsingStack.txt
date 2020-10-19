@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define SIZE 20
+
+typedef struct Stack{
+    int a[SIZE];
+    int top;
+}Stack;
+
+void init(Stack *s){
+    s->top=-1;
+}
+
+int empty(Stack s){
+    return s.top==-1;
+}
+
+int push(Stack *s,int value){
+    if(s->top==SIZE-1) return -1;
+    s->a[++s->top]=value;
+    return 1;
+}
+
+int pop(Stack *s){
+    if(empty(*s)) return -1;
+    return s->a[s->top--];
+}
+
+
+int checkBalancedParanthesis(char x[]){
+    int i;
+    Stack s;
+    init(&s);
+    for(i=0;i<strlen(x);i++){
+        if (x[i]=='(' || x[i]=='{' || x[i]=='[') push(&s,x[i]);
+        else if (x[i]==')' && pop(&s)!='(') return 0;
+        else if (x[i]=='}' && pop(&s)!='{') return 0;
+        else if (x[i]==']' && pop(&s)!='[') return 0;
+    }
+    if(!empty(s)) return 0;
+    return 1;
+}
+
+void main()
+{
+    char x[SIZE]="[(a+b)*c]/d";
+    int result;
+    result=checkBalancedParanthesis(x);
+    if(result==1){
+        printf("\nNo error\n");
+    }
+    else{
+        printf("\nThere is an error\n");
+    }
+
+}
