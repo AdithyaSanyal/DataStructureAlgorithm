@@ -1,0 +1,13 @@
+INFIX TO POSTFIX CONVERSION RULES USING STACK
+
+1. Print Operands as they arrive
+2. If stack is empty or contains a left parenthesis,push the incoming operator onto the stack
+3. If incoming symbol is '(' push it onto the stack
+4. If incoming symbol is ')' pop stack and print operators till left parenthesis is found.
+5. If incoming symbol has higher precedence than the top of the stack,push it on the stack.
+6. If incoming symbol has lower precedence than the top of the stack,pop and print top.Then test the incoming operator against new top of the stack.
+7. If incoming operator has equal precedence with top of the stack,use associativity rule
+8. At the end of the expression,pop and print all operators of stack.
+=>associativity L to R then pop and print the top of the stack and then push the incoming operator
+=>associativity R to L then push the incoming operator
+
