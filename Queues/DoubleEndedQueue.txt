@@ -1,0 +1,132 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+#define max 10
+int dq[max];
+int front=-1;
+int rear=-1;
+
+void enqueueFront(int x){
+if((front==0 && rear==max-1)||(front==rear+1)){
+    printf("\nThe queue is full");
+}
+else if(front==-1 && rear==-1){
+    front=rear=0;
+    dq[front]=x;
+}
+else if(front==0){
+    front=max-1;
+    dq[front]=x;
+}
+else{
+    front--;
+    dq[front]=x;
+}
+}
+
+void enqueueRear(int x){
+if((front==0 && rear==max-1)||(front==rear+1)){
+    printf("\nThe queue is full");
+}
+else if(front==-1 && rear==-1){
+    front=rear=0;
+    dq[rear]=x;
+}
+else if(rear==max-1){
+    rear=0;
+    dq[rear]=x;
+}
+else{
+    rear++;
+    dq[rear]=x;
+}
+}
+
+void dequeueFront(){
+if(front==-1 && rear==-1){
+    printf("\nQueue is empty");
+}
+else if(front==rear){
+    printf("Dequeued element is: %d",dq[front]);
+    front=rear=-1;
+}
+else if(front==max-1){
+    printf("Dequeued element is: %d",dq[front]);
+    front=0;
+}
+else{
+    printf("Dequeued element is: %d",dq[front]);
+    front++;
+}
+}
+
+void dequeueEnd(){
+if(front==-1 && rear==-1){
+    printf("\nQueue is empty");
+}
+else if(front==rear){
+    printf("Dequeued element is: %d",dq[rear]);
+    front=rear=-1;
+}
+else if(rear==0){
+    printf("Dequeued element is: %d",dq[rear]);
+    rear=max-1;
+}
+else{
+    printf("Dequeued element is: %d",dq[rear]);
+    rear--;
+}
+}
+
+void display(){
+int i=front;
+while(i!=rear){
+    printf(" %d ",dq[i]);
+    i=(i+1)%max;
+}
+printf("%d",dq[rear]);
+}
+
+void getFront(){
+printf("\nThe front value is: %d",dq[front]);
+}
+
+void getRear(){
+printf("\nThe rear value is: %d",dq[rear]);
+}
+
+void main(){
+int ch=0,x,y;
+while(ch!=8){
+    printf("\n 1.Enqueue from front \n 2.Enqueue from rear \n 3.Dequeue from front \n 4.Dequeue from rear \n 5.Get front element \n 6.Get rear element \n 7.Display \n 8.Exit \n");
+    printf("\nEnter choice: ");
+    scanf("%d",&ch);
+    switch(ch){
+case 1:
+    printf("\nEnter data: ");
+    scanf("%d",&x);
+    enqueueFront(x);
+    break;
+case 2:
+    printf("\nEnter data: ");
+    scanf("%d",&y);
+    enqueueRear(y);
+    break;
+case 3:
+    dequeueFront();
+    break;
+case 4:
+    dequeueEnd();
+    break;
+case 5:
+    getFront();
+    break;
+case 6:
+    getRear();
+    break;
+case 7:
+    display();
+    break;
+    }
+}
+}
