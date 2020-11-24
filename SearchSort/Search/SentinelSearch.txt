@@ -1,0 +1,26 @@
+#include<stdio.h>
+
+void main(){
+int n,a[10],num,i,last;
+printf("\nEnter the number of elements: ");
+scanf("%d",&n);
+for(i=0;i<n;i++){
+    printf("\nEnter element: ");
+    scanf("%d",&a[i]);
+}
+printf("\nEnter number to be searched: ");
+scanf("%d",&num);
+last=a[n-1];
+a[n-1]=num;
+i=0;
+while(a[i]!=num){
+    i++;
+}
+a[n-1]=last;
+if(i<n-1 || num==last){
+    printf("\nElement found");
+}
+else{
+    printf("\nElement not found");
+}
+}
