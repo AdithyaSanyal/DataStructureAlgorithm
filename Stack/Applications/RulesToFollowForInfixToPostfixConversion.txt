@@ -11,3 +11,5 @@ INFIX TO POSTFIX CONVERSION RULES USING STACK
 =>associativity L to R then pop and print the top of the stack and then push the incoming operator
 =>associativity R to L then push the incoming operator
 
++,- : R TO L
+*,/ : L TO R
