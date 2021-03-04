@@ -1,0 +1,85 @@
+#include <stdio.h>
+
+void merge(int arr[], int l, int m, int r)
+{
+    int i, j, k;
+    int n1 = m - l + 1;
+    int n2 = r - m;
+    int left[n1], right[n2];
+
+    for (i = 0; i < n1; i++){
+        left[i] = arr[l + i];
+    }
+    for (j = 0; j < n2; j++){
+        right[j] = arr[m + 1 + j];
+    }
+
+    i = 0; // Initial index of first sub-array
+    j = 0; // Initial index of second sub-array
+    k = l; // Initial index of merged sub-array
+    while (i < n1 && j < n2) {
+        if (left[i] <= right[j]) {
+            arr[k] = left[i];
+            i++;
+        }
+        else {
+            arr[k] = right[j];
+            j++;
+        }
+        k++;
+    }
+
+    //Copy remaining elements from left[] if there are any
+    while (i < n1) {
+        arr[k] = left[i];
+        i++;
+        k++;
+    }
+
+    //Copy the remaining elements of right[], if there are any
+    while (j < n2) {
+        arr[k] = right[j];
+        j++;
+        k++;
+    }
+}
+
+//l is for left index and r is right index of the sub-array of arr to be sorted
+void mergeSort(int arr[], int l, int r)
+{
+    if (l < r) {
+        int m = l + (r - l) / 2;
+        mergeSort(arr, l, m);
+        mergeSort(arr, m + 1, r);
+        merge(arr, l, m, r);
+    }
+}
+
+//To print an array
+void printArray(int A[], int n)
+{
+    int i;
+    for (i = 0; i < n; i++)
+        printf("%d ", A[i]);
+    printf("\n");
+}
+
+void main()
+{
+    int n,arr[20];
+    printf("\nEnter the number of entries: \n");
+    scanf("%d",&n);
+
+    for(int i=0;i<n;i++){
+        printf("\nEnter the number: ");
+        scanf("%d",&arr[i]);
+    }
+
+    printf("Given array is \n");
+    printArray(arr, n);
+
+    mergeSort(arr, 0, n - 1);
+
+    printf("\nSorted array is \n");
+    printArray(arr, n);
+}
