@@ -1,0 +1,47 @@
+#include<stdio.h>
+
+int a[20],n,mid;
+int max,min,max1,min1;
+
+void minmax(int low,int high){
+    if(low==high){
+        max=min=a[low];
+    }
+    else if(low==high-1){
+        if(a[low]<a[high]){
+            max=a[high];
+            min=a[low];
+        }
+        else{
+            max=a[low];
+            min=a[high];
+        }
+    }
+    else{
+        mid=(low+high)/2;
+        minmax(low,mid);
+        max1=max;
+        min1=min;
+        minmax(mid+1,high);
+        if(max1>max){
+            max=max1;
+        }
+        if(min1<min){
+            min=min1;
+        }
+    }
+}
+
+void main(){
+    printf("\nEnter number of elements: ");
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++){
+        printf("Enter element: ");
+        scanf("%d",&a[i]);
+    }
+    max=a[0];
+    min=a[0];
+    minmax(1,n);
+    printf ("Minimum element in an array : %d\n", min);
+    printf ("Maximum element in an array : %d\n", max);
+}
