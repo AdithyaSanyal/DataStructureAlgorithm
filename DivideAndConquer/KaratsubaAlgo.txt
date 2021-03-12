@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <string.h>
+
+#include <math.h>
+
+//to get size of the input numbers
+int getSize(long num)
+{
+    int count = 0;
+    while (num > 0)
+    {
+        count++;
+        num /= 10;
+    }
+    return count;
+}
+
+//main calculation function
+long karatsuba(long X, long Y,int base)
+{
+    //The base case when numbers entered are small enough
+    if (X < 10 && Y < 10)
+        return X * Y;
+
+    //Getting largest input element
+    int size = fmax(getSize(X), getSize(Y));
+
+    //found the nearest integer to which array can be divided into
+    int n = (int)ceil(size / 2.0);
+    //dividing array
+    long p = (long)pow(10, n);
+    long a = (long)floor(X / (double)p);
+    long b = X % p;
+    long c = (long)floor(Y / (double)p);
+    long d = Y % p;
+
+    long ac = karatsuba(a, c,base);
+    long bd = karatsuba(b, d,base);
+    long e = karatsuba(a + b, c + d,base) - ac - bd;
+
+    return (long)(pow(base * 1L, 2 * n) * ac + pow(base * 1L, n) * e + bd);
+}
+
+int main()
+{
+    long int n1,n2,result;
+    int base;
+    printf("Enter 10 for decimal \nEnter 2 for binary \nEnter 8 for octal \nEnter 16 for hexadecimal \n");
+    printf("Enter the base number system: ");
+    scanf("%d",&base);
+    printf("Enter first number: ");
+    scanf("%ld",&n1);
+    printf("Enter second number: ");
+    scanf("%ld",&n2);
+    result=karatsuba(n1,n2,base);
+    printf("The answer to the multiplication is: %ld",result);
+    return 0;
+}
