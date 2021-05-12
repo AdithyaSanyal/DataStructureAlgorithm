@@ -1,0 +1,165 @@
+#include<stdio.h> 
+
+#include<stdlib.h> 
+
+#include<string.h> 
+
+#include<limits.h> 
+
+  
+
+struct Edge{ 
+
+int destination; 
+
+int weight; 
+
+int source; 
+
+}; 
+
+  
+
+struct Graph{ 
+
+int V,E; 
+
+struct Edge *edge; 
+
+}; 
+
+  
+
+struct Graph *createGraph(int vertices,int edges){ 
+
+struct Graph* graph=(struct Graph *)malloc(sizeof(struct Graph)); 
+
+graph->E=edges; 
+
+graph->V=vertices; 
+
+graph->edge=(struct Edge *)malloc(graph->E*sizeof(struct Edge)); 
+
+return graph; 
+
+}; 
+
+  
+
+void print(int distance[],int n){ 
+
+printf("\nVertex\tDistance from Source Vertex\n"); 
+
+for(int i=0;i<n;i++){ 
+
+    printf("%d\t\t%d\n",i,distance[i]); 
+
+} 
+
+} 
+
+  
+
+void bellmanFord(struct Graph* graph,int source){ 
+
+int vertices=graph->V; 
+
+int edges=graph->E; 
+
+int distance[vertices]; 
+
+  
+
+for(int i=0;i<vertices;i++){ 
+
+    distance[i]=INT_MAX; 
+
+} 
+
+distance[source]=0; 
+
+for(int i=1;i<=vertices-1;i++){ 
+
+    for(int j=0;j<edges;j++){ 
+
+        int u=graph->edge[j].source; 
+
+        int v=graph->edge[j].destination; 
+
+        int weight=graph->edge[j].weight; 
+
+        if(distance[u]+weight<distance[v]){ 
+
+            distance[v]=distance[u]+weight; 
+
+        } 
+
+    } 
+
+} 
+
+  
+
+for(int i=0;i<edges;i++){ 
+
+    int u=graph->edge[i].source; 
+
+    int v=graph->edge[i].destination; 
+
+    int weight=graph->edge[i].weight; 
+
+    if(distance[u]+weight<distance[v]){ 
+
+        printf("\nThis graph has a negative edge cycle"); 
+
+    } 
+
+} 
+
+  
+
+print(distance,vertices); 
+
+} 
+
+  
+
+void main(){ 
+
+int vertices,edges,source; 
+
+printf("Enter number of vertices in graph\n"); 
+
+scanf("%d",&vertices); 
+
+printf("Enter number of edges in graph\n"); 
+
+scanf("%d",&edges); 
+
+printf("Enter your source vertex number\n"); 
+
+scanf("%d",&source); 
+
+  
+
+struct Graph* graph=createGraph(vertices,edges); 
+
+  
+
+for(int i=0;i<edges;i++){ 
+
+    printf("\nEnter edge %d properties Source, destination, weight respectively\n",i+1); 
+
+    scanf("%d",&graph->edge[i].source); 
+
+    scanf("%d",&graph->edge[i].destination); 
+
+    scanf("%d",&graph->edge[i].weight); 
+
+} 
+
+  
+
+bellmanFord(graph,source); 
+
+} 

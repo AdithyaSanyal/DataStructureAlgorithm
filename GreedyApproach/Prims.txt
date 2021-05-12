@@ -1,0 +1,115 @@
+#include<stdio.h> 
+
+#include <stdbool.h> 
+
+#define MAX 10 
+
+#define INFINITE 10000 
+
+  
+
+int adj[MAX][MAX]; 
+
+  
+
+int minimumKey(int key[MAX],bool minSpanningTree_set[MAX],int n){ 
+
+int min=INFINITE; 
+
+int minimumIndex; 
+
+  
+
+for(int i=0;i<n;i++){ 
+
+    if(minSpanningTree_set[i]==false && key[i]<min){ 
+
+        min=key[i]; 
+
+        minimumIndex=i; 
+
+    } 
+
+} 
+
+return minimumIndex; 
+
+} 
+
+  
+
+void primsAlgo(int adj[MAX][MAX],int n){ 
+
+int parent[MAX],key[MAX]; 
+
+bool minSpanningTree_set[MAX]; 
+
+int u; 
+
+for(int i=0;i<n;++i){ 
+
+    key[i]=INFINITE; 
+
+    minSpanningTree_set[i]=false; 
+
+} 
+
+key[0]=0; 
+
+parent[0]=-1; 
+
+for(int i=0;i<n-1;i++){ 
+
+    u=minimumKey(key,minSpanningTree_set,n); 
+
+    minSpanningTree_set[u]=true; 
+
+    for(int v=0;v<n;v++){ 
+
+        if(adj[u][v] && minSpanningTree_set[v]==false && adj[u][v]<key[v]){ 
+
+            parent[v]=u; 
+
+            key[v]=adj[u][v]; 
+
+        } 
+
+    } 
+
+} 
+
+printf("\nEdge \tWeight: \n"); 
+
+for(int i=1;i<n;i++){ 
+
+    printf("%d <-> %d  \t%d\n",parent[i],i,adj[i][parent[i]]); 
+
+} 
+
+} 
+
+  
+
+void main(){ 
+
+int n; 
+
+printf("Enter the number of vertices:\n"); 
+
+scanf("%d",&n); 
+
+for(int i=0;i<n;i++){ 
+
+    for(int j=0;j<n;j++){ 
+
+        printf("Enter weights of edges %d to %d: ",i,j); 
+
+        scanf("%d",&adj[i][j]); 
+
+    } 
+
+} 
+
+primsAlgo(adj,n); 
+
+} 
